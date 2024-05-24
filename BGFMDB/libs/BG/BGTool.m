@@ -886,7 +886,10 @@ void bg_cleanCache(){
         NSMutableArray* arrM = [NSMutableArray array];
         NSArray* array = [self jsonWithString:jsonString];
         for(NSDictionary* dict in array){
-            [arrM addObject:[self valueForArrayRead:dict]];
+            NSObject *obj = [self valueForArrayRead:dict];
+            if (obj) {
+                [arrM addObject:obj];
+            }
         }
         return arrM;
     }else{
