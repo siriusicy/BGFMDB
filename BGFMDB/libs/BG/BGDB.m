@@ -1983,7 +1983,9 @@ static BGDB* BGdb = nil;
                     id value = [keyAndTypes firstObject];
                     NSString* type = [keyAndTypes lastObject];
                     value = [BGTool getSqlValue:value type:type encode:NO];
-                    [resultM addObject:value];
+                    if (value) {
+                        [resultM addObject:value];
+                    }
                 }
             }
             bg_completeBlock(resultM);

@@ -467,7 +467,10 @@ void bg_cleanCache(){
     }else{
         NSMutableArray* arrM = [NSMutableArray array];
         for(id value in array){
-            [arrM addObject:[self dictionaryForArrayInsert:value]];
+            NSObject *obj = [self dictionaryForArrayInsert:value];
+            if (obj) {
+                [arrM addObject:obj];
+            }
         }
         return [self dataToJson:arrM];
     }
@@ -527,7 +530,10 @@ void bg_cleanCache(){
     NSMutableArray* arrM = [NSMutableArray array];
     NSArray* values = hashTable.objectEnumerator.allObjects;
     for(id value in values){
-        [arrM addObject:[self dictionaryForArrayInsert:value]];
+        NSObject *obj = [self dictionaryForArrayInsert:value];
+        if (obj) {
+            [arrM addObject:obj];
+        }
     }
     return  [self dataToJson:arrM];
 }
@@ -781,7 +787,9 @@ void bg_cleanCache(){
                         NSMutableArray* ArrObjects = [NSMutableArray array];
                         for(NSDictionary* ArrObj in dataDictObj){
                             id obj = [self bg_objectWithClass:ArrObjCla value:ArrObj];
-                            [ArrObjects addObject:obj];
+                            if (obj) {
+                                [ArrObjects addObject:obj];
+                            }
                         }
                         ArrObject = ArrObjects;
                         *stop = YES;
@@ -830,7 +838,9 @@ void bg_cleanCache(){
                 NSMutableArray* ArrObjects = [NSMutableArray array];
                 for(id arrObj in value){
                     id dictObj = [self bg_keyValuesWithObject:arrObj ignoredKeys:nil];
-                    [ArrObjects addObject:dictObj];
+                    if (dictObj) {
+                        [ArrObjects addObject:dictObj];
+                    }
                 }
                 value = ArrObjects;
                 *stop = YES;
@@ -957,7 +967,9 @@ void bg_cleanCache(){
     NSHashTable* hashTable = [NSHashTable new];
     for (id obj in arr) {
         id value = [self valueForArrayRead:obj];
-        [hashTable addObject:value];
+        if (value) {
+            [hashTable addObject:value];
+        }
     }
     return hashTable;
 }
@@ -995,7 +1007,9 @@ void bg_cleanCache(){
 //        }];
         
         id object = [BGTool objectFromJsonStringWithTableName:tableName class:cla valueDict:dict];
-        [arrM addObject:object];
+        if (object) {
+            [arrM addObject:object];
+        }
     }
     return arrM;
 }

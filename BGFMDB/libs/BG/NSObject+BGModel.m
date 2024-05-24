@@ -731,7 +731,9 @@ extern id _Nullable bg_executeSql(NSString* _Nonnull sql,NSString* _Nullable tab
     NSMutableArray* results = [NSMutableArray array];
     for (id value in array) {
         id obj = [BGTool bg_objectWithClass:[self class] value:value];
-        [results addObject:obj];
+        if (obj) {
+            [results addObject:obj];
+        }
     }
     return results;
 }
